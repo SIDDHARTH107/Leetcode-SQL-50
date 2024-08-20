@@ -979,3 +979,30 @@ SELECT x, y, z, CASE WHEN x + y > z AND y + z > x AND z + x > y
                 ELSE 'No'
                 END AS triangle
 FROM Triangle
+
+33.
+Table: Logs
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| num         | varchar |
++-------------+---------+
+In SQL, id is the primary key for this table.
+id is an autoincrement column.
+ 
+
+Find all numbers that appear at least three times consecutively.
+
+Return the result table in any order.
+
+# Write your MySQL query statement below
+SELECT L1.num AS ConsecutiveNums
+FROM Logs AS L1, Logs AS L2, Logs AS L3
+WHERE L1.id - L2.id = 1 
+  AND L2.id - L3.id = 1
+  -- Consecutive num means the difference between their ids must be 1 because the id column is auto increament
+  AND L1.num = L2.num
+  AND L2.num = L3.num
+  AND L3.num = L1.num
+GROUP BY L1.num

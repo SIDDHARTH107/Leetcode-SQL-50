@@ -1432,3 +1432,49 @@ SELECT patient_id, patient_name, conditions
 FROM Patients 
 WHERE conditions LIKE "% DIAB1%" 
    OR conditions like "DIAB1%";
+
+46.
+Table: Person
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| email       | varchar |
++-------------+---------+
+id is the primary key (column with unique values) for this table.
+Each row of this table contains an email. The emails will not contain uppercase letters.
+ 
+
+Write a solution to delete all duplicate emails, keeping only one unique email with the smallest id.
+
+For SQL users, please note that you are supposed to write a DELETE statement and not a SELECT one.
+
+For Pandas users, please note that you are supposed to modify Person in place.
+
+After running your script, the answer shown is the Person table. The driver will first compile and run your piece of code and then show the Person table. The final order of the Person table does not matter.
+
+# Write your MySQL query statement below
+DELETE P1.*
+FROM Person AS P1
+JOIN Person AS P2
+ON P1.email = P2.email 
+WHERE P1.id > P2.id
+
+47.
+Table: Employee
++-------------+------+
+| Column Name | Type |
++-------------+------+
+| id          | int  |
+| salary      | int  |
++-------------+------+
+id is the primary key (column with unique values) for this table.
+Each row of this table contains information about the salary of an employee.
+
+Write a solution to find the second highest distinct salary from the Employee table. If there is no second highest salary, return null (return None in Pandas).
+
+# Write your MySQL query statement below
+SELECT MAX(salary) AS SecondHighestSalary
+FROM Employee
+WHERE salary NOT IN (SELECT MAX(salary)
+                     FROM Employee)
